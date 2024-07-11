@@ -3,15 +3,17 @@ import { TextField, Button, Typography, Paper, Grid } from '@mui/material';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../../actions/posts';
+import TagInput from '../TagInput/TagInput';
 
 const Form = ({ handleClose }) => {
+
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     title: '',
     description: '',
     code: '',
     creator: '',
-    tags: '',
+    tags: [],
     selectedFile: '',
   });
 
@@ -30,7 +32,7 @@ const Form = ({ handleClose }) => {
       description: '',
       code: '',
       creator: '',
-      tags: '',
+      tags: [],
       selectedFile: '',
     });
   };
@@ -86,13 +88,9 @@ const Form = ({ handleClose }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              name="tags"
-              variant="outlined"
-              label="Tags (comma separated)"
-              fullWidth
-              value={postData.tags}
-              onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
+            <TagInput
+              tags={postData.tags}
+              setTags={(newTags) => setPostData({ ...postData, tags: newTags })}
             />
           </Grid>
           <Grid item xs={12}>

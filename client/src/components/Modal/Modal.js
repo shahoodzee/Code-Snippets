@@ -37,7 +37,7 @@ export default function NestedModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen}>Add a post</Button>
       <Modal
         open={open}
         onClose={handleClose}

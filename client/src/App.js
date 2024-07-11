@@ -21,8 +21,8 @@ const App = (props) => {
             <Container maxWidth='lg'>
                 <Grow in>
                     <Container>
-                        <Grid container justifyContent='space-between' alignItems='stretch' spacing={4} >
-                            <Grid item xs={12} sm={7} >
+                        <Grid container justifyContent='space-between' alignItems='stretch' spacing={4} marginTop={10}>
+                            <Grid item xs={12} sm={8} >
                                 <Posts />
                             </Grid>
                             <Grid item xs={12} sm={4} >
