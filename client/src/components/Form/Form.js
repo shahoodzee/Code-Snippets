@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper, Grid } from '@mui/material';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
-import { createPost } from '../../actions/posts';
 import TagInput from '../TagInput/TagInput';
+import { createPost, updatePost } from '../../actions/posts';
 
-const Form = ({ handleClose }) => {
+const Form = ({ handleClose, post }) => {
 
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
@@ -17,13 +17,21 @@ const Form = ({ handleClose }) => {
     selectedFile: '',
   });
 
+  useEffect(() => {
+    if (post) {
+      setPostData(post);
+    }
+  }, [post]);
+
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
-    dispatch(createPost(postData));
+    if (post) {
+      dispatch(updatePost(post._id, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
     clear();
     handleClose();
-
   };
 
   const clear = () => {
@@ -38,10 +46,10 @@ const Form = ({ handleClose }) => {
   };
 
   return (
-    <Paper style={{ padding: '20px', margin: '20px' }}>
+<Paper style={{ padding: '20px', margin: '20px' }}>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Typography variant="h6" gutterBottom>
-          Create a Snippet.
+          {post ? 'Edit Post' : 'Create a Snippet'}
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
@@ -80,7 +88,7 @@ const Form = ({ handleClose }) => {
             <TextField
               name="Code"
               variant="outlined"
-              label="code"
+              label="Code"
               fullWidth
               rows={4}
               value={postData.code}
@@ -94,16 +102,12 @@ const Form = ({ handleClose }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            {/* <div style={{ margin: '10px 0' }}>
+            <div style={{ margin: '10px 0' }}>
               <FileBase
                 type="file"
                 multiple={false}
                 onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
               />
-            </div> */}
-            <div style={{ margin: '10px 0' }} >
-              <FileBase 
-                type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
             </div>
           </Grid>
         </Grid>

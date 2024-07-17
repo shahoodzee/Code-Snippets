@@ -1,39 +1,23 @@
-import React, { useEffect } from "react";
-import Navbar from "./components/Navbar/Navbar";
-import { Container, Grow, Grid } from "@mui/material";
-import Posts from "./components/Posts/Posts";
-import NestedModal from "./components/Modal/Modal";
+import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Dashboard from './pages/Dashboard';
+import Post from './pages/Post';
+import Profile from './pages/Profile';
 
-import { useDispatch } from "react-redux"; 
-import { getPosts } from './actions/posts';
-
-
-const App = (props) => {
-    const dispatch  = useDispatch();
-    useEffect(() => {
-        dispatch(getPosts());
-
-    },[dispatch])
-
+function App() {
   return (
-        <>
-            <Navbar />
-            <Container maxWidth='lg'>
-                <Grow in>
-                    <Container>
-                        <Grid container justifyContent='space-between' alignItems='stretch' spacing={4} marginTop={10}>
-                            <Grid item xs={12} sm={8} >
-                                <Posts />
-                            </Grid>
-                            <Grid item xs={12} sm={4} >
-                                <NestedModal />
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </Grow>
-            </Container>
-
-        </>
-    )
+    <div className="App">
+      <Router>
+        <div>
+          <Routes>
+          <Route path = "/Dashboard" element={<Dashboard />}></Route>
+          <Route path = "/Post" element={<Post />}></Route>
+          <Route path = "/Profile" element={<Profile />}></Route>
+          </Routes>
+        </div>
+      </Router>
+    </div>
+  );
 }
+
 export default App;

@@ -1,18 +1,29 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { TableCell, TableRow, Button } from '@mui/material';
-import { likePost, deletePost } from '../../../actions/posts';
+import { TableCell, TableRow } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  row: {
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: theme.palette.action.selected,
+    },
+  },
+}));
 
 const Post = ({ post }) => {
-  const dispatch = useDispatch();
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const handleRowClick = () => {
+    navigate(`/Post/`, { state: { postId: post._id } });
+    alert("Clicked");
+  };
 
   return (
-    <TableRow>
+    <TableRow className={classes.row} onClick={handleRowClick}>
       <TableCell component="th" scope="row">
         {post.title}
       </TableCell>
@@ -25,12 +36,8 @@ const Post = ({ post }) => {
       <TableCell align="right">
         {post.creator}
       </TableCell>
-      <TableCell align="right">
-        <Button onClick={() => dispatch(likePost(post._id))}>Like</Button>
-        <Button onClick={() => dispatch(deletePost(post._id))}>Delete</Button>
-      </TableCell>
     </TableRow>
   );
-}
+};
 
 export default Post;
