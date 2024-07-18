@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, Box } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';

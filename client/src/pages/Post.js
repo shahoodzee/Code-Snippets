@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Container, Box, Card, Grow, Grid } from '@material-ui/core';
+import { Container, Grow, Grid } from '@material-ui/core';
 import Navbar from '../components/Navbar/Navbar';
 import PostDetails from '../components/Posts/PostDetails/PostDetails';
 import PostComments from '../components/Posts/PostComments/PostComments';

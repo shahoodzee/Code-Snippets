@@ -42,6 +42,7 @@ const Dashboard = () => {
                                     <OpenModalButton handleOpen={handleOpen} />
                                     <NestedModal open={open} handleClose={handleClose} />
                                 </Box>
+                                <CardContent/>
                                 </Card>
                             </Grid>
                         </Grid>
