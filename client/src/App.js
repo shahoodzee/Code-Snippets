@@ -4,20 +4,23 @@ import Dashboard from './pages/Dashboard';
 import Post from './pages/Post';
 import Profile from './pages/Profile';
 import Auth from './pages/Auth';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
+
+const clientId = '806635105131-mt4ahi7522okg6h209mc3cq3tbeatb85.apps.googleusercontent.com';
 function App() {
   return (
     <div className="App">
-      <Router>
-        <div>
+      <GoogleOAuthProvider clientId={clientId}>
+        <Router>
           <Routes>
-          <Route path = "/Dashboard" element={<Dashboard />}></Route>
-          <Route path = "/Auth" element={<Auth />}></Route>
-          <Route path = "/Post" element={<Post />}></Route>
-          <Route path = "/Profile" element={<Profile />}></Route>
+            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/Auth" element={<Auth />} />
+            <Route path="/Post" element={<Post />} />
+            <Route path="/Profile" element={<Profile />} />
           </Routes>
-        </div>
-      </Router>
+        </Router>
+      </GoogleOAuthProvider>
     </div>
   );
 }

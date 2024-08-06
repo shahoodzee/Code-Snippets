@@ -4,7 +4,7 @@ import SignUp from "../components/Auth/Auth";
 const Auth = (isUserloggedIn) => {
   return (
     <>
-      <SignUp isUserloggedIn={isUserloggedIn} />
+      <SignUp />
     </>
   )
 };
