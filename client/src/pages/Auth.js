@@ -1,7 +1,7 @@
 import React from "react";
 import SignUp from "../components/Auth/Auth";
 
-const Auth = (isUserloggedIn) => {
+const Auth = () => {
   return (
     <>
       <SignUp />

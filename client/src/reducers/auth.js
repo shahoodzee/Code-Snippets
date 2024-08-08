@@ -1,4 +1,4 @@
-import { AUTH, LOGOUT, AUTH_ERROR } from '../constants/ActionTypes';
+import { AUTH, LOGOUT, AUTH_ERROR, SIGNUP } from '../constants/ActionTypes';
 
 const initialState = {
     isUserLoggedIn: false,
@@ -11,6 +11,9 @@ export default (state = initialState, action) => {
 
         case AUTH:
             return { ...state, isUserLoggedIn: true, user: action.payload, error: null };
+
+        case SIGNUP:
+            return { ...state, isLoggedIn: true, user: action.payload, error: null };
     
         case LOGOUT:
             return { ...state, isUserLoggedIn: false, user: null, error: null };

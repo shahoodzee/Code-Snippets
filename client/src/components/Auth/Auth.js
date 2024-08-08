@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Box, Grid, IconButton } from '@mui/material';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { login, loginFailure } from '../../actions/auth'; // Import loginFailure
+import { login, loginFailure, signUp } from '../../actions/auth';
 import { useNavigate } from 'react-router-dom';
+import { getValidationErrors } from '../../common/ErrorMessages/FormValidationErrors';
+const clientId = '806635105131-mt4ahi7522okg6h209mc3cq3tbeatb85.apps.googleusercontent.com';
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ fullName: '', phoneNumber: '', email: '', password: '', confirmPassword: '' });
+  const [errors, setErrors] = useState({});
   const { error } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
@@ -19,13 +22,31 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //dispatch(login(form, navigate));
+    const newErrors = getValidationErrors(form, isSignUp);
+  
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+  
+    setErrors({});
+    console.log(form)
+
+    // if (isSignUp) {
+    //   dispatch(signUp(form, navigate));
+    // } else {
+    //   dispatch(login(form, navigate));
+    // }
   };
 
   const handleGoogleLogin = (response) => {
-    //const user = { email: 'google_user@example.com' };
-    console.log(response);
-    //dispatch(login(user, navigate));
+    try {
+      console.log(response);
+      //dispatch(login(user, navigate));
+    } catch (error) {
+      console.error('Google login error:', error);
+      dispatch(loginFailure('Google login failed'));
+    }
   };
 
   return (
@@ -45,8 +66,9 @@ const SignUp = () => {
           label="Email Address"
           name="email"
           autoComplete="email"
-          autoFocus
           onChange={handleChange}
+          error={!!errors.email}
+          helperText={errors.email}
         />
         <TextField
           margin="normal"
@@ -58,19 +80,50 @@ const SignUp = () => {
           id="password"
           autoComplete="current-password"
           onChange={handleChange}
+          error={!!errors.password}
+          helperText={errors.password}
         />
         {isSignUp && (
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="confirmPassword"
-            label="Confirm Password"
-            type="password"
-            id="confirmPassword"
-            autoComplete="current-password"
-            onChange={handleChange}
-          />
+          <>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="fullName"
+              label="Full Name"
+              name="fullName"
+              autoComplete="name"
+              autoFocus
+              onChange={handleChange}
+              error={!!errors.fullName}
+              helperText={errors.fullName}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="phoneNumber"
+              label="Phone Number"
+              name="phoneNumber"
+              autoComplete="tel"
+              onChange={handleChange}
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              id="confirmPassword"
+              autoComplete="current-password"
+              onChange={handleChange}
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword}
+            />
+          </>
         )}
         {error && <Typography color="error">{error}</Typography>}
         <Button type="submit" fullWidth variant="contained" color="primary" sx={{ mt: 3, mb: 2 }}>
@@ -84,7 +137,12 @@ const SignUp = () => {
           </Grid>
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          <GoogleLogin onSuccess={handleGoogleLogin} onError={() => dispatch(loginFailure('Google login failed'))} />
+          <GoogleLogin
+            clientId={clientId}
+            onSuccess={handleGoogleLogin}
+            onError={() => dispatch(loginFailure('Google login failed'))}
+            cookiePolicy="single_host_origin"
+          />
         </Box>
       </Box>
     </Box>

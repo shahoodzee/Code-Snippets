@@ -11,3 +11,4 @@ export const deletePost = (id) => axios.delete(`${url}/${id}`);
 
 const authUrl = 'http://localhost:5000/auth';
 export const login = (formData) => axios.post(`${authUrl}/login`, formData);
+export const signup = (formData) => axios.post(`${authUrl}/signup`, formData);
