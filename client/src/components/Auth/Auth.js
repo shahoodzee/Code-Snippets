@@ -32,11 +32,11 @@ const SignUp = () => {
     setErrors({});
     console.log(form)
 
-    // if (isSignUp) {
-    //   dispatch(signUp(form, navigate));
-    // } else {
-    //   dispatch(login(form, navigate));
-    // }
+    if (isSignUp) {
+      dispatch(signUp(form, navigate));
+    } else {
+      dispatch(login(form, navigate));
+    }
   };
 
   const handleGoogleLogin = (response) => {

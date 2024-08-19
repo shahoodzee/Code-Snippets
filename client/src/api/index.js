@@ -9,6 +9,6 @@ export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
 export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
 export const deletePost = (id) => axios.delete(`${url}/${id}`);
 
-const authUrl = 'http://localhost:5000/auth';
-export const login = (formData) => axios.post(`${authUrl}/login`, formData);
+const authUrl = 'http://localhost:5000/user';
+export const login = (formData) => axios.post(`${authUrl}/signin`, formData);
 export const signup = (formData) => axios.post(`${authUrl}/signup`, formData);

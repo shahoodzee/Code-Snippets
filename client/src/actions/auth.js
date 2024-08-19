@@ -1,11 +1,11 @@
 import * as api from '../api';
 import { AUTH, LOGOUT, AUTH_ERROR, SIGNUP } from '../constants/ActionTypes';
 
-export const login = (formData, router) => async (dispatch) => {
+export const login = (formData, navigate) => async (dispatch) => {
   try {
     const { data } = await api.login(formData);
     dispatch({ type: AUTH, payload: data });
-    router.push('/');
+    navigate('/Dashboard');
   } catch (error) {
     dispatch({ type: AUTH_ERROR, payload: 'Invalid email or password' });
   }

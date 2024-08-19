@@ -2,6 +2,7 @@ import PostMessage from '../models/postMessage.js';
 import express from 'express';
 import mongoose from 'mongoose';
 
+
 export const getPosts = async (req,res) => {
     try {
         const postMessages = await PostMessage.find();
@@ -27,7 +28,6 @@ export const getPost = async (req, res) => {
 
     try {
         const post = await PostMessage.findById(id);
-        
         res.status(200).json(post);
     } catch (error) {
         res.status(404).json({ message: error.message });
